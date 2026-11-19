@@ -1,0 +1,21 @@
+[project]
+name = "chess-coach"
+version = "0.1.0"
+description = "A personal chess coach: RAG over open chess literature plus an agent that reviews my games."
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain>=1.5.0",
+    "langchain-ollama>=1.1.0",
+]
+
+# Tells uv how to install our own code (src/chess_coach) into the virtual
+# environment, so `import chess_coach` works from scripts and tests.
+[build-system]
+requires = ["uv_build>=0.11.23,<0.12.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.2.0",
+]

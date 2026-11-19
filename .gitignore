@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+.pytest_cache/
+dist/
+*.egg-info/
+
+# Secrets: real values live in .env, only .env.example is committed
+.env
+
+# Corpus and vector index: rebuilt by the pipeline, never committed
+data/
+
+# Local Claude Code settings (personal, not shared)
+.claude/settings.local.json
