@@ -25,6 +25,11 @@ what we measure in one phase decides what we do in the next.
 - Chat model: `qwen3.5:9b` (100% GPU at 4096 context, about 5.6 GB). Fallback `qwen3:8b`.
   Context length will be set explicitly in `config.py` and re-checked with `ollama ps`.
 - Embeddings: `qwen3-embedding:0.6b`, with `nomic-embed-text` as comparison.
+- Open issue for Phase 1: VRAM and load order. Both models fit at 100% GPU (5.5 + 1.2 GB)
+  only if the chat model loads first. If the embedding model is already loaded, the chat
+  model loads split (12%/88% CPU/GPU, 6.4 GB). Embeddings on CPU (`num_gpu=0`) cost little
+  per question (95 vs 69 ms) but are about 60x slower for indexing (50 chunks: 70 s vs 1.2 s).
+  Likely fix: keep both on GPU, load the chat model first, and raise `keep_alive` so neither unloads.
 - Labels: two separate fields, used for both corpus metadata and mistake classification.
   `phase`: opening / middlegame / endgame / any. `category`: tactics / strategy / theory.
 
@@ -43,7 +48,8 @@ what we measure in one phase decides what we do in the next.
 - [x] 0.6b Follow-up questions and observation log: `scripts/chat.py` sends the full history
       each turn and appends the conversation to `docs/llm-log.md`, with a hand-written verdict
       per answer (correct / partly wrong / mostly wrong / wrong)
-- [ ] 0.7 First embedding call and cosine similarity
+- [x] 0.7 First embedding call and cosine similarity (`get_embeddings`, `similarity.py`,
+      `tests/test_similarity.py`, `scripts/hello_embed.py`)
 - [ ] 0.8 Casing test ("Bb5" vs "bb5") on both embedding models, results in `docs/experiments.md`
 - [ ] 0.9 README section, commit, explain each step back
 
