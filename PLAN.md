@@ -38,7 +38,11 @@ what we measure in one phase decides what we do in the next.
 - [x] 0.4 Dependencies: `langchain`, `langchain-ollama`, `pytest` (dev)
 - [x] 0.5 `config.py`: model names, Ollama URL, context length, thinking flag in one place,
       plus `.env.example`
-- [ ] 0.6 First chat call with `init_chat_model`; check `ollama ps` still shows 100% GPU at 8192 context
+- [x] 0.6 First chat call with `init_chat_model` (`models.py`, `scripts/hello_chat.py`);
+      8192 context runs at 100% GPU, 5.5 GB
+- [x] 0.6b Follow-up questions and observation log: `scripts/chat.py` sends the full history
+      each turn and appends the conversation to `docs/llm-log.md`, with a hand-written verdict
+      per answer (correct / partly wrong / mostly wrong / wrong)
 - [ ] 0.7 First embedding call and cosine similarity
 - [ ] 0.8 Casing test ("Bb5" vs "bb5") on both embedding models, results in `docs/experiments.md`
 - [ ] 0.9 README section, commit, explain each step back
@@ -104,7 +108,8 @@ ablation, BM25, hybrid search, reciprocal rank fusion, reranker, metadata filter
 **New packages (expected):** `langsmith`; later `rank-bm25` and a reranker, chosen when we get there.
 
 - [ ] 2.1 **Write the question set.** 30-50 questions you write, each with the verified answer
-      and the article that contains it. Mix: easy facts, concepts, notation-heavy
+      and the article that contains it. Start from the partly wrong / wrong entries in
+      `docs/llm-log.md`. Mix: easy facts, concepts, notation-heavy
       ("what is the idea behind 3.Bb5?"), and a few unanswerable ones. *Learn:* the eval set
       is the most valuable artefact in a RAG project; why you write it and not the LLM.
 - [ ] 2.2 **Retrieval metrics.** Hit rate@k (is the right source in the top k?) and MRR (how

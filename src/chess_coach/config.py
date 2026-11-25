@@ -6,6 +6,7 @@ hard-code a model name or URL: import it from here instead.
 """
 
 import os
+from pathlib import Path
 
 from dotenv import load_dotenv
 
@@ -28,3 +29,10 @@ NUM_CTX = int(os.getenv("NUM_CTX", "8192"))
 
 # Whether the chat model thinks before answering. Off for Phases 0-1.
 THINKING = os.getenv("THINKING", "false").lower() == "true"
+
+# Project folder, found from this file's location (src/chess_coach/config.py),
+# so paths work no matter which folder a script is run from.
+PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+# Where scripts/chat.py appends conversations for review.
+LLM_LOG_PATH = PROJECT_ROOT / "docs" / "llm-log.md"
