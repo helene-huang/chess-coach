@@ -36,8 +36,9 @@ what we measure in one phase decides what we do in the next.
 - [x] 0.2 Package layout: `src/chess_coach/`, build system
 - [ ] 0.3 Ollama models pulled and running on the GPU (chat model done; `nomic-embed-text` still to pull)
 - [x] 0.4 Dependencies: `langchain`, `langchain-ollama`, `pytest` (dev)
-- [ ] 0.5 `config.py`: model names and Ollama URL in one place
-- [ ] 0.6 First chat call with `init_chat_model`
+- [x] 0.5 `config.py`: model names, Ollama URL, context length, thinking flag in one place,
+      plus `.env.example`
+- [ ] 0.6 First chat call with `init_chat_model`; check `ollama ps` still shows 100% GPU at 8192 context
 - [ ] 0.7 First embedding call and cosine similarity
 - [ ] 0.8 Casing test ("Bb5" vs "bb5") on both embedding models, results in `docs/experiments.md`
 - [ ] 0.9 README section, commit, explain each step back
